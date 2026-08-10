@@ -22,13 +22,13 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private long expiration;
 
-    // Generate token for a user
+    
     public String generateToken(String email) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, email);
     }
 
-    // Create the token
+    
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .setClaims(claims)
@@ -39,34 +39,34 @@ public class JwtUtil {
                 .compact();
     }
 
-    // Validate token
+    
     public boolean validateToken(String token, String email) {
         final String extractedEmail = extractEmail(token);
         return (extractedEmail.equals(email) && !isTokenExpired(token));
     }
 
-    // Extract email from token
+    
     public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-    // Check if token is expired
+    
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
-    // Extract expiration date
+    
     private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    // Generic claim extractor
+    
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
-    // Extract all claims from token
+    
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -75,7 +75,7 @@ public class JwtUtil {
                 .getBody();
     }
 
-    // Get signing key from secret
+    
     private Key getSigningKey() {
         byte[] keyBytes = secret.getBytes();
         return Keys.hmacShaKeyFor(keyBytes);
