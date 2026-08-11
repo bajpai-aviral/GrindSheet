@@ -1,4 +1,4 @@
-package com.sweatsheet.server.exercise;
+package com.sweatsheet.server.planner;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,13 +11,11 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExerciseResponse {
+public class PlanExerciseResponse {
 
     private UUID id;
-    private UUID logId;
     private String name;
     private int sets;
     private int reps;
-    private double weight;
-    private String notes;
+    private int exerciseOrder;
 }

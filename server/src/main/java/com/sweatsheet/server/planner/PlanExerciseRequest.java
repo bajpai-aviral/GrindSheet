@@ -1,4 +1,4 @@
-package com.sweatsheet.server.exercise;
+package com.sweatsheet.server.planner;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -7,15 +7,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExerciseRequest {
-
-    private UUID logId;
+public class PlanExerciseRequest {
 
     @NotBlank(message = "Exercise name is required")
     private String name;
@@ -26,8 +22,5 @@ public class ExerciseRequest {
     @Min(value = 1, message = "Reps must be at least 1")
     private int reps;
 
-    @Min(value = 0, message = "Weight cannot be negative")
-    private double weight;
-
-    private String notes;
+    private int exerciseOrder;
 }
