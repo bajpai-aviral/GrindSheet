@@ -1,6 +1,5 @@
-package com.sweatsheet.server.exercise;
+package com.sweatsheet.server.planner;
 
-import com.sweatsheet.server.workout.WorkoutLog;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -12,20 +11,20 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 @Entity
-@Table(name = "exercises")
+@Table(name = "plan_exercises")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Exercise {
+public class PlanExercise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "log_id", nullable = false)
-    private WorkoutLog workoutLog;
+    @JoinColumn(name = "plan_day_id", nullable = false)
+    private PlanDay planDay;
 
     @NotBlank(message = "Exercise name is required")
     private String name;
@@ -36,8 +35,6 @@ public class Exercise {
     @Min(value = 1, message = "Reps must be at least 1")
     private int reps;
 
-    @Min(value = 0, message = "Weight cannot be negative")
-    private double weight;
-
-    private String notes;
+    @Column(name = "exercise_order")
+    private int exerciseOrder;
 }
