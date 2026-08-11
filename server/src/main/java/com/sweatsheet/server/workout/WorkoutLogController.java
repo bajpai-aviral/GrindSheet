@@ -40,4 +40,16 @@ public class WorkoutLogController {
         workoutLogService.deleteLog(id);
         return ResponseEntity.ok("Workout log deleted successfully");
     }
+
+    @GetMapping("/today")
+    public ResponseEntity<DailyScreenResponse> getTodayScreen(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return ResponseEntity.ok(workoutLogService.getTodayScreen(date));
+    }
+
+    @GetMapping("/past")
+    public ResponseEntity<PastRecordResponse> getPastRecord(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return ResponseEntity.ok(workoutLogService.getPastRecord(date));
+    }
 }
