@@ -1,5 +1,6 @@
 package com.sweatsheet.server.planner;
 
+import com.sweatsheet.server.setlog.SetLogRepository;
 import com.sweatsheet.server.user.User;
 import com.sweatsheet.server.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class PlannerService {
     private final PlanDayRepository planDayRepository;
     private final PlanExerciseRepository planExerciseRepository;
     private final UserRepository userRepository;
+    private final SetLogRepository setLogRepository;
 
     // Get currently logged in user
     private User getCurrentUser() {
@@ -122,7 +124,6 @@ public class PlannerService {
         return toPlannerResponse(plannerRepository.save(planner));
     }
 
-    // Delete planner
     public void deletePlanner(UUID id) {
         User user = getCurrentUser();
         Planner planner = plannerRepository.findById(id)
@@ -131,6 +132,16 @@ public class PlannerService {
         if (!planner.getUser().getId().equals(user.getId())) {
             throw new RuntimeException("You are not authorized to delete this planner");
         }
+
+        // Delete all set logs for all exercises in all days
+        planDayRepository.findAllByPlannerId(id).forEach(day -> {
+            planExerciseRepository
+                    .findAllByPlanDayIdOrderByExerciseOrderAsc(day.getId())
+                    .forEach(exercise -> {
+                        setLogRepository.deleteAll(
+                                setLogRepository.findAllByPlanExerciseId(exercise.getId()));
+                    });
+        });
 
         plannerRepository.deleteById(id);
     }
@@ -195,8 +206,19 @@ public class PlannerService {
 
     // Delete day
     public void deleteDay(UUID dayId) {
-        planDayRepository.findById(dayId)
+        PlanDay day = planDayRepository.findById(dayId)
                 .orElseThrow(() -> new RuntimeException("Plan day not found"));
+
+        // Delete set logs for all exercises in this day first
+        List<PlanExercise> exercises = planExerciseRepository
+                .findAllByPlanDayIdOrderByExerciseOrderAsc(dayId);
+
+        exercises.forEach(exercise -> {
+            List<com.sweatsheet.server.setlog.SetLog> setLogs = setLogRepository
+                    .findAllByPlanExerciseId(exercise.getId());
+            setLogRepository.deleteAll(setLogs);
+        });
+
         planDayRepository.deleteById(dayId);
     }
 
@@ -230,10 +252,14 @@ public class PlannerService {
         return toExerciseResponse(planExerciseRepository.save(exercise));
     }
 
-    // Delete exercise
     public void deleteExercise(UUID exerciseId) {
-        planExerciseRepository.findById(exerciseId)
+        PlanExercise exercise = planExerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new RuntimeException("Exercise not found"));
+
+        // Delete set logs first
+        List<com.sweatsheet.server.setlog.SetLog> setLogs = setLogRepository.findAllByPlanExerciseId(exerciseId);
+        setLogRepository.deleteAll(setLogs);
+
         planExerciseRepository.deleteById(exerciseId);
     }
 }
