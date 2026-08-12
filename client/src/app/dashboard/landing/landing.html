@@ -1,1 +1,114 @@
-<p>landing works!</p>
+<div class="landing-container">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <span class="brand-icon">💪</span>
+      <span class="brand-name">SweatSheet</span>
+    </div>
+    <div class="navbar-actions">
+      <span class="welcome-text">Hey, {{ userName }}!</span>
+      <button mat-icon-button (click)="logout()" matTooltip="Logout">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="content">
+
+    <!-- Loading -->
+    <div class="loading-container" *ngIf="isLoading">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+
+    <!-- No Planners -->
+    <div class="empty-state" *ngIf="!isLoading && planners.length === 0">
+      <mat-icon class="empty-icon">fitness_center</mat-icon>
+      <h2>No planners yet</h2>
+      <p>Create your first workout planner to get started</p>
+      <button mat-raised-button color="primary" (click)="openCreatePlanner()">
+        <mat-icon>add</mat-icon>
+        Create Your First Planner
+      </button>
+    </div>
+
+    <!-- Planners List -->
+    <div *ngIf="!isLoading && planners.length > 0">
+
+      <div class="section-header">
+        <h2>Your Planners</h2>
+        <button mat-raised-button color="primary" (click)="openCreatePlanner()">
+          <mat-icon>add</mat-icon>
+          New Planner
+        </button>
+      </div>
+
+      <!-- Active Planner Banner -->
+      <!-- Active Planner Banner -->
+<div class="active-banner" *ngIf="getActivePlanner()">
+  <mat-icon>bolt</mat-icon>
+  <span>Active: <strong>{{ getActivePlanner()?.name }}</strong></span>
+  <button mat-stroked-button (click)="goToToday()">
+    <mat-icon>today</mat-icon>
+    Go to Today's Workout
+  </button>
+</div>
+
+      <!-- Planner Cards -->
+      <div class="planners-grid">
+        <mat-card
+          *ngFor="let planner of planners"
+          class="planner-card"
+          [class.active-card]="planner.active">
+
+          <mat-card-header>
+            <mat-card-title>{{ planner.name }}</mat-card-title>
+            <mat-card-subtitle>
+              {{ planner.days?.length || 0 }} days configured
+            </mat-card-subtitle>
+            <mat-chip class="status-chip" [class.active-chip]="planner.active">
+              {{ planner.active ? 'Active' : 'Inactive' }}
+            </mat-chip>
+          </mat-card-header>
+
+          <mat-card-content>
+            <div class="days-preview">
+              <span
+                *ngFor="let day of planner.days"
+                class="day-badge"
+                [class.rest-day]="day.label.toLowerCase().includes('rest')">
+                {{ day.dayOfWeek | slice:0:3 }}
+              </span>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <button mat-button (click)="openPlanner(planner)">
+              <mat-icon>settings</mat-icon>
+              Manage
+            </button>
+            <button
+              mat-button
+              color="primary"
+              *ngIf="!planner.active"
+              (click)="activatePlanner(planner)">
+              <mat-icon>play_arrow</mat-icon>
+              Activate
+            </button>
+            <button
+              mat-button
+              color="accent"
+              *ngIf="planner.active"
+              (click)="goToToday()">
+              <mat-icon>today</mat-icon>
+              Today
+            </button>
+          </mat-card-actions>
+
+        </mat-card>
+      </div>
+    </div>
+
+  </div>
+</div>
