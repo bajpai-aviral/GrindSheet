@@ -1,1 +1,136 @@
-<p>planner-detail works!</p>
+<div class="detail-container">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <button mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span class="brand-name">💪 SweatSheet</span>
+    </div>
+  </nav>
+
+  <!-- Loading -->
+  <div class="loading-container" *ngIf="isLoading">
+    <mat-spinner diameter="48"></mat-spinner>
+  </div>
+
+  <!-- Content -->
+  <div class="content" *ngIf="!isLoading && planner">
+
+    <!-- Planner Header -->
+    <div class="planner-header">
+      <div class="header-info">
+        <h1>{{ planner.name }}</h1>
+        <mat-chip [class.active-chip]="planner.active">
+          {{ planner.active ? '● Active' : '○ Inactive' }}
+        </mat-chip>
+      </div>
+      <div class="header-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          *ngIf="!planner.active"
+          (click)="activatePlanner()">
+          <mat-icon>play_arrow</mat-icon>
+          Activate
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="openAddDay()"
+          [disabled]="getAvailableDays().length === 0">
+          <mat-icon>add</mat-icon>
+          Add Day
+        </button>
+      </div>
+    </div>
+
+    <!-- No Days -->
+    <div class="empty-state" *ngIf="planner.days?.length === 0">
+      <mat-icon class="empty-icon">calendar_today</mat-icon>
+      <h3>No days configured yet</h3>
+      <p>Add days to your planner and set up exercises for each day</p>
+      <button mat-raised-button color="primary" (click)="openAddDay()">
+        <mat-icon>add</mat-icon>
+        Add First Day
+      </button>
+    </div>
+
+    <!-- Days Grid -->
+    <div class="days-grid">
+      <mat-card
+        *ngFor="let day of getOrderedDays()"
+        class="day-card"
+        [class.rest-card]="day.label.toLowerCase().includes('rest')">
+
+        <!-- Day Header -->
+        <mat-card-header>
+          <mat-card-title>{{ day.dayOfWeek }}</mat-card-title>
+          <mat-card-subtitle>{{ day.label }}</mat-card-subtitle>
+          <div class="day-actions">
+            <button mat-icon-button (click)="openEditDay(day)" matTooltip="Edit day">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteDay(day)" matTooltip="Delete day">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </mat-card-header>
+
+        <mat-divider></mat-divider>
+
+        <!-- Exercises -->
+        <mat-card-content>
+
+          <!-- Rest Day -->
+          <div class="rest-label" *ngIf="day.label.toLowerCase().includes('rest')">
+            <mat-icon>hotel</mat-icon>
+            <span>Rest Day</span>
+          </div>
+
+          <!-- Exercise List -->
+          <div class="exercise-list" *ngIf="!day.label.toLowerCase().includes('rest')">
+
+            <div class="empty-exercises" *ngIf="day.exercises?.length === 0">
+              <p>No exercises added yet</p>
+            </div>
+
+            <div
+              class="exercise-item"
+              *ngFor="let exercise of day.exercises; let i = index">
+              <div class="exercise-info">
+                <span class="exercise-order">{{ i + 1 }}</span>
+                <div class="exercise-details">
+                  <span class="exercise-name">{{ exercise.name }}</span>
+                  <span class="exercise-meta">
+                    {{ exercise.sets }} sets × {{ exercise.reps }} reps
+                  </span>
+                </div>
+              </div>
+              <div class="exercise-actions">
+                <button mat-icon-button (click)="openEditExercise(exercise)" matTooltip="Edit">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteExercise(exercise)" matTooltip="Delete">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </mat-card-content>
+
+        <!-- Add Exercise -->
+        <mat-card-actions *ngIf="!day.label.toLowerCase().includes('rest')">
+          <button mat-button color="primary" (click)="openAddExercise(day)">
+            <mat-icon>add</mat-icon>
+            Add Exercise
+          </button>
+        </mat-card-actions>
+
+      </mat-card>
+    </div>
+
+  </div>
+</div>

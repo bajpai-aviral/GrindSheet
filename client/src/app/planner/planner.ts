@@ -18,7 +18,7 @@ export class PlannerService {
 
   private apiUrl = `${environment.apiUrl}/planners`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAllPlanners(): Observable<Planner[]> {
     return this.http.get<Planner[]>(this.apiUrl);
@@ -52,8 +52,9 @@ export class PlannerService {
     return this.http.put<PlanDay>(`${environment.apiUrl}/plan-days/${dayId}`, request);
   }
 
-  deleteDay(dayId: string): Observable<void> {
-    return this.http.delete<void>(`${environment.apiUrl}/plan-days/${dayId}`);
+  deleteDay(dayId: string): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/plan-days/${dayId}`,
+      { responseType: 'text' });
   }
 
   addExercise(dayId: string, request: PlanExerciseRequest): Observable<PlanExercise> {
@@ -66,8 +67,9 @@ export class PlannerService {
       `${environment.apiUrl}/plan-exercises/${exerciseId}`, request);
   }
 
-  deleteExercise(exerciseId: string): Observable<void> {
-    return this.http.delete<void>(
-      `${environment.apiUrl}/plan-exercises/${exerciseId}`);
+  deleteExercise(exerciseId: string): Observable<any> {
+    return this.http.delete(
+      `${environment.apiUrl}/plan-exercises/${exerciseId}`,
+      { responseType: 'text' });
   }
 }

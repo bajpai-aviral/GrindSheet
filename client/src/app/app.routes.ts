@@ -63,5 +63,32 @@ export const routes: Routes = [
   {
     path: '**',
     redirectTo: 'dashboard'
+  },
+
+  {
+    path: ':id',
+    loadComponent: () =>
+      import('./planner/planner-detail/planner-detail').then(m => m.PlannerDetail)
+  },
+  {
+    path: 'workout',
+    canActivate: [authGuard],
+    children: [
+      {
+        path: 'today',
+        loadComponent: () =>
+          import('./workout/daily-screen/daily-screen').then(m => m.DailyScreen)
+      },
+      {
+        path: 'compare',
+        loadComponent: () =>
+          import('./workout/compare/compare').then(m => m.Compare)
+      },
+      {
+        path: 'past',
+        loadComponent: () =>
+          import('./workout/past-records/past-records').then(m => m.PastRecords)
+      }
+    ]
   }
 ];
