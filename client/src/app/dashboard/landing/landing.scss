@@ -1,6 +1,6 @@
 .landing-container {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: #0d0d0d;
 }
 
 .navbar {
@@ -9,23 +9,21 @@
   justify-content: space-between;
   padding: 0 24px;
   height: 64px;
-  background: linear-gradient(135deg, #1a1a2e, #0f3460);
-  color: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  background: #111;
+  border-bottom: 1px solid #222;
 
   .navbar-brand {
     display: flex;
     align-items: center;
     gap: 8px;
 
-    .brand-icon { font-size: 1.5rem; }
+    .brand-icon { font-size: 1.4rem; }
 
     .brand-name {
-      font-size: 1.4rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #e91e63, #ff5722);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #ff7f5c;
+      letter-spacing: -0.5px;
     }
   }
 
@@ -36,17 +34,19 @@
 
     .welcome-text {
       font-size: 0.9rem;
-      opacity: 0.85;
+      color: #666;
     }
 
-    button { color: white; }
+    button {
+      color: #fff !important;
+    }
   }
 }
 
 .content {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 32px 24px;
+  padding: 40px 24px;
 }
 
 .loading-container {
@@ -67,19 +67,24 @@
     font-size: 80px;
     width: 80px;
     height: 80px;
-    color: #ccc;
+    color: #333;
     margin-bottom: 16px;
   }
 
   h2 {
     font-size: 1.5rem;
-    color: #333;
+    color: #fff;
     margin-bottom: 8px;
   }
 
-  p {
-    color: #999;
-    margin-bottom: 24px;
+  p { color: #555; margin-bottom: 24px; }
+
+  button {
+    background: linear-gradient(135deg, #ff7f5c, #ff5722) !important;
+    color: #111 !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    padding: 8px 24px !important;
   }
 }
 
@@ -90,9 +95,16 @@
   margin-bottom: 24px;
 
   h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #333;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  button {
+    background: linear-gradient(135deg, #ff7f5c, #ff5722) !important;
+    color: #111 !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
   }
 }
 
@@ -100,43 +112,62 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: linear-gradient(135deg, #e91e63, #ff5722);
-  color: white;
+  background: #1a1a1a;
+  border: 1px solid #ff7f5c;
+  border-left: 4px solid #ff7f5c;
+  color: #fff;
   padding: 16px 24px;
   border-radius: 12px;
   margin-bottom: 24px;
 
-  mat-icon { font-size: 1.2rem; }
+  mat-icon { color: #ff7f5c; }
+
+  span { font-size: 0.95rem; }
+
+  strong { color: #ff7f5c; }
 
   button {
     margin-left: auto;
-    color: white;
-    border-color: rgba(255,255,255,0.5);
+    color: #ff7f5c !important;
+    border-color: #ff7f5c !important;
+    border-radius: 8px !important;
   }
 }
 
 .planners-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  gap: 16px;
 }
 
 .planner-card {
-  border-radius: 12px !important;
-  transition: transform 0.2s, box-shadow 0.2s;
-  position: relative;
+  background: #1a1a1a !important;
+  border: 1px solid #2a2a2a !important;
+  border-radius: 14px !important;
+  transition: transform 0.2s, border-color 0.2s;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+    border-color: #333 !important;
   }
 
   &.active-card {
-    border: 2px solid #e91e63;
+    border-color: #ff7f5c !important;
+  }
+
+  mat-card-title {
+    color: #fff !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+  }
+
+  mat-card-subtitle {
+    color: #555 !important;
   }
 
   mat-card-header {
     position: relative;
+    padding-right: 80px;
   }
 
   .status-chip {
@@ -145,12 +176,13 @@
     right: 0;
     font-size: 0.7rem;
     height: 24px;
-    background: #eee;
-    color: #666;
+    background: #2a2a2a !important;
+    color: #555 !important;
+    border-radius: 20px !important;
 
     &.active-chip {
-      background: rgba(233, 30, 99, 0.1);
-      color: #e91e63;
+      background: rgba(255, 127, 92, 0.15) !important;
+      color: #ff7f5c !important;
     }
   }
 }
@@ -166,12 +198,21 @@
     border-radius: 20px;
     font-size: 0.75rem;
     font-weight: 600;
-    background: rgba(233, 30, 99, 0.1);
-    color: #e91e63;
+    background: rgba(255, 127, 92, 0.1);
+    color: #ff7f5c;
 
     &.rest-day {
-      background: #f5f5f5;
-      color: #999;
+      background: #222;
+      color: #444;
     }
+  }
+}
+
+mat-card-actions {
+  button {
+    color: #666 !important;
+
+    &[color="primary"] { color: #ff7f5c !important; }
+    &[color="accent"] { color: #ff7f5c !important; }
   }
 }
