@@ -1,4 +1,4 @@
-# 🏋️ SweatSheet
+# 🏋️ grindsheet
 
 A full-stack web application that lets users log daily workout sessions — tracking exercises, sets, reps, and weight — with a built-in week-on-week comparison to monitor progress over time.
 
@@ -6,7 +6,7 @@ A full-stack web application that lets users log daily workout sessions — trac
 
 ## 📸 Overview
 
-SweatSheet helps fitness enthusiasts maintain structured workout logs in a clean tabular format and compare today's performance against the same day from the previous week — making it easy to spot improvements and stay accountable.
+grindsheet helps fitness enthusiasts maintain structured workout logs in a clean tabular format and compare today's performance against the same day from the previous week — making it easy to spot improvements and stay accountable.
 
 ---
 
@@ -38,7 +38,7 @@ SweatSheet helps fitness enthusiasts maintain structured workout logs in a clean
 ## 📁 Project Structure
 
 ```
-/sweatsheet
+/grindsheet
   /client                        ← Angular frontend
     /src/app
       /auth                      ← Login, Register, Auth Guard
@@ -73,8 +73,8 @@ SweatSheet helps fitness enthusiasts maintain structured workout logs in a clean
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/sweatsheet.git
-cd sweatsheet
+git clone https://github.com/your-username/grindsheet.git
+cd grindsheet
 ```
 
 ---
