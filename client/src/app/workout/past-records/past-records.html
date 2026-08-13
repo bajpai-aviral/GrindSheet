@@ -1,1 +1,124 @@
-<p>past-records works!</p>
+<div class="past-container">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <button mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span class="brand-name">💪 SweatSheet</span>
+    </div>
+    <div class="navbar-right">
+      <button mat-button (click)="goToToday()">
+        <mat-icon>today</mat-icon>
+        Today
+      </button>
+    </div>
+  </nav>
+
+  <div class="content">
+
+    <!-- Header -->
+    <div class="page-header">
+      <h1>Past Records</h1>
+      <p>Browse your workout history by date</p>
+    </div>
+
+    <!-- Date Picker -->
+    <mat-card class="date-picker-card">
+      <mat-card-content>
+        <div class="date-picker-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Select Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              [(ngModel)]="selectedDate"
+              [max]="maxDate">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="loadRecord()">
+            <mat-icon>search</mat-icon>
+            Load Record
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Loading -->
+    <div class="loading-container" *ngIf="isLoading">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+
+    <!-- Record -->
+    <div *ngIf="!isLoading && record">
+
+      <!-- Record Header -->
+      <div class="record-header">
+        <h2>{{ record.dayLabel }}</h2>
+        <p class="record-date">{{ getDisplayDate() }}</p>
+        <p class="planner-name">{{ record.plannerName }}</p>
+      </div>
+
+      <!-- Exercise Cards -->
+      <div class="exercises-list">
+        <mat-card
+          class="exercise-card"
+          *ngFor="let exercise of record.exercises">
+
+          <mat-card-header>
+            <mat-card-title>{{ exercise.name }}</mat-card-title>
+            <mat-card-subtitle>
+              {{ exercise.totalSets }} sets × {{ exercise.reps }} reps
+            </mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-divider></mat-divider>
+
+          <mat-card-content>
+            <div class="sets-table">
+
+              <!-- Header -->
+              <div class="sets-header">
+                <span>Set</span>
+                <span>Reps</span>
+                <span>Weight Used</span>
+              </div>
+
+              <!-- Set Rows -->
+              <div
+                class="set-row"
+                *ngFor="let set of exercise.sets"
+                [class.not-logged]="set.loggedWeight === null">
+
+                <span class="set-number">{{ set.setNumber }}</span>
+                <span class="reps">{{ set.reps }}</span>
+                <span class="weight">
+                  <span *ngIf="set.loggedWeight !== null">
+                    {{ set.loggedWeight }}kg
+                  </span>
+                  <span *ngIf="set.loggedWeight === null" class="not-logged-text">
+                    Not logged
+                  </span>
+                </span>
+
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- No Record Found -->
+    <div class="empty-state" *ngIf="!isLoading && hasSearched && !record">
+      <mat-icon class="empty-icon">search_off</mat-icon>
+      <h3>No record found</h3>
+      <p>No workout was logged for {{ getDisplayDate() }}</p>
+    </div>
+
+  </div>
+</div>

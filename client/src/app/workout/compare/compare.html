@@ -1,1 +1,145 @@
-<p>compare works!</p>
+<div class="compare-container">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <button mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span class="brand-name">💪 SweatSheet</span>
+    </div>
+    <div class="navbar-right">
+      <button mat-button (click)="goToPast()">
+        <mat-icon>history</mat-icon>
+        Past Records
+      </button>
+    </div>
+  </nav>
+
+  <!-- Loading -->
+  <div class="loading-container" *ngIf="isLoading">
+    <mat-spinner diameter="48"></mat-spinner>
+  </div>
+
+  <!-- Content -->
+  <div class="content" *ngIf="!isLoading && comparison">
+
+    <!-- Header -->
+    <div class="compare-header">
+      <div class="header-info">
+        <h1>Progress Comparison</h1>
+        <p class="date-text">{{ displayDate }}</p>
+        <p class="planner-text">{{ comparison.plannerName }} — {{ comparison.dayLabel }}</p>
+      </div>
+      <div class="compared-badge">
+        <mat-icon>compare_arrows</mat-icon>
+        <span>vs {{ getComparedToLabel() }}</span>
+      </div>
+    </div>
+
+    <!-- No previous record -->
+    <div class="no-record-banner" *ngIf="!comparison.comparedToDate">
+      <mat-icon>info</mat-icon>
+      <div>
+        <strong>No previous record found up to 3 weeks</strong>
+        <p>Check Past Records to browse older logs manually</p>
+        <button mat-stroked-button (click)="goToPast()">
+          <mat-icon>history</mat-icon>
+          Browse Past Records
+        </button>
+      </div>
+    </div>
+
+    <!-- Exercise Comparisons -->
+    <div class="exercises-list">
+      <mat-card
+        class="exercise-card"
+        *ngFor="let exercise of comparison.exercises">
+
+        <mat-card-header>
+          <mat-card-title>{{ exercise.name }}</mat-card-title>
+          <mat-card-subtitle>
+            Compared to {{ getComparedToLabel() }}
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-divider></mat-divider>
+
+        <mat-card-content>
+          <div class="sets-table">
+
+            <!-- Header -->
+            <div class="sets-header">
+              <span>Set</span>
+              <span>Reps</span>
+              <span>Previous</span>
+              <span>Current</span>
+              <span>Diff</span>
+            </div>
+
+            <!-- Set Rows -->
+            <div
+              class="set-row"
+              *ngFor="let set of exercise.sets">
+
+              <!-- Set Number -->
+              <span class="set-number">{{ set.setNumber }}</span>
+
+              <!-- Reps -->
+              <span class="reps">{{ set.reps }}</span>
+
+              <!-- Previous Weight -->
+              <span class="prev-weight">
+                <span *ngIf="set.previousWeight !== null">
+                  {{ set.previousWeight }}kg
+                </span>
+                <span *ngIf="set.previousWeight === null" class="no-record">
+                  —
+                </span>
+              </span>
+
+              <!-- Current Weight -->
+              <span class="current-weight">
+                <span *ngIf="set.currentWeight !== null">
+                  {{ set.currentWeight }}kg
+                </span>
+                <span *ngIf="set.currentWeight === null" class="no-record">
+                  Not logged
+                </span>
+              </span>
+
+              <!-- Difference -->
+              <span
+                class="diff"
+                [class]="getDiffClass(set.weightDifference)">
+                {{ getDiffLabel(set.weightDifference) }}
+                <span *ngIf="set.weightDifference === null" class="no-record">—</span>
+              </span>
+
+            </div>
+
+          </div>
+
+          <!-- Message -->
+          <div class="message-banner" *ngIf="exercise.sets[0]?.message">
+            <mat-icon>info</mat-icon>
+            <span>{{ exercise.sets[0].message }}</span>
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!isLoading && !comparison">
+    <mat-icon class="empty-icon">compare_arrows</mat-icon>
+    <h2>No comparison available</h2>
+    <p>Make sure you have an active planner and today is configured</p>
+    <button mat-raised-button color="primary" (click)="goBack()">
+      Go to Today's Workout
+    </button>
+  </div>
+
+</div>
