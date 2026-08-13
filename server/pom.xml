@@ -8,7 +8,7 @@
 		<version>4.1.0</version>
 		<relativePath/>
 	</parent>
-	<groupId>com.sweatsheet</groupId>
+	<groupId>com.grindsheet</groupId>
 	<artifactId>server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<properties>

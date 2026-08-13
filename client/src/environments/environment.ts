@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://sweatsheet-server.onrender.com/api'
+  apiUrl: 'https://grindsheet-server.onrender.com/api'
 };

@@ -15,8 +15,8 @@ import {
 export class AuthService {
 
   private apiUrl = `${environment.apiUrl}/auth`;
-  private tokenKey = 'sweatsheet_token';
-  private userKey = 'sweatsheet_user';
+  private tokenKey = 'grindsheet_token';
+  private userKey = 'grindsheet_user';
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
