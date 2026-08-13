@@ -1,6 +1,6 @@
 .detail-container {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: #0d0d0d;
 }
 
 .navbar {
@@ -9,23 +9,20 @@
   justify-content: space-between;
   padding: 0 24px;
   height: 64px;
-  background: linear-gradient(135deg, #1a1a2e, #0f3460);
-  color: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  background: #111;
+  border-bottom: 1px solid #222;
 
   .navbar-left {
     display: flex;
     align-items: center;
     gap: 8px;
 
-    button { color: white; }
+    button { color: #fff !important; }
 
     .brand-name {
       font-size: 1.2rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #e91e63, #ff5722);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+      color: #ff7f5c;
     }
   }
 }
@@ -39,7 +36,7 @@
 .content {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 32px 24px;
+  padding: 40px 24px;
 }
 
 .planner-header {
@@ -58,16 +55,18 @@
     h1 {
       font-size: 1.8rem;
       font-weight: 700;
-      color: #333;
+      color: #fff;
       margin: 0;
     }
 
     mat-chip {
       font-size: 0.8rem;
+      background: #2a2a2a !important;
+      color: #555 !important;
 
       &.active-chip {
-        background: rgba(233, 30, 99, 0.1);
-        color: #e91e63;
+        background: rgba(255, 127, 92, 0.15) !important;
+        color: #ff7f5c !important;
       }
     }
   }
@@ -75,6 +74,22 @@
   .header-actions {
     display: flex;
     gap: 12px;
+
+    button {
+      border-radius: 10px !important;
+      font-weight: 700 !important;
+    }
+
+    button[color="primary"] {
+      background: linear-gradient(135deg, #ff7f5c, #ff5722) !important;
+      color: #111 !important;
+    }
+
+    button[color="accent"] {
+      background: #1a1a1a !important;
+      color: #ff7f5c !important;
+      border: 1px solid #ff7f5c !important;
+    }
   }
 }
 
@@ -89,26 +104,44 @@
     font-size: 64px;
     width: 64px;
     height: 64px;
-    color: #ccc;
+    color: #333;
     margin-bottom: 16px;
   }
 
-  h3 { color: #333; margin-bottom: 8px; }
-  p { color: #999; margin-bottom: 24px; }
+  h3 { color: #fff; margin-bottom: 8px; }
+  p { color: #555; margin-bottom: 24px; }
+
+  button {
+    background: linear-gradient(135deg, #ff7f5c, #ff5722) !important;
+    color: #111 !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+  }
 }
 
 .days-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  gap: 16px;
 }
 
 .day-card {
-  border-radius: 12px !important;
+  background: #1a1a1a !important;
+  border: 1px solid #2a2a2a !important;
+  border-radius: 14px !important;
 
   &.rest-card {
-    background: #fafafa;
-    opacity: 0.8;
+    opacity: 0.6;
+  }
+
+  mat-card-title {
+    color: #fff !important;
+    font-weight: 700 !important;
+  }
+
+  mat-card-subtitle {
+    color: #ff7f5c !important;
+    font-weight: 600 !important;
   }
 
   mat-card-header {
@@ -120,6 +153,9 @@
       top: 0;
       right: 0;
       display: flex;
+
+      button { color: #444 !important; }
+      button[color="warn"] { color: #ff5252 !important; }
     }
   }
 }
@@ -128,7 +164,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #999;
+  color: #444;
   padding: 16px 0;
 
   mat-icon { font-size: 1.2rem; }
@@ -138,7 +174,7 @@
   padding: 8px 0;
 
   .empty-exercises {
-    color: #999;
+    color: #444;
     font-size: 0.875rem;
     padding: 16px 0;
     text-align: center;
@@ -150,7 +186,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid #222;
 
   &:last-child { border-bottom: none; }
 
@@ -163,8 +199,8 @@
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: rgba(233, 30, 99, 0.1);
-      color: #e91e63;
+      background: rgba(255, 127, 92, 0.1);
+      color: #ff7f5c;
       font-size: 0.75rem;
       font-weight: 700;
       display: flex;
@@ -179,13 +215,13 @@
 
       .exercise-name {
         font-weight: 600;
-        color: #333;
+        color: #fff;
         font-size: 0.9rem;
       }
 
       .exercise-meta {
         font-size: 0.8rem;
-        color: #999;
+        color: #555;
       }
     }
   }
@@ -193,5 +229,16 @@
   .exercise-actions {
     display: flex;
     gap: 4px;
+
+    button { color: #444 !important; }
+    button[color="warn"] { color: #ff5252 !important; }
   }
+}
+
+mat-card-actions {
+  button[color="primary"] { color: #ff7f5c !important; }
+}
+
+mat-divider {
+  border-color: #222 !important;
 }

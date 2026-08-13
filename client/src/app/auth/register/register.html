@@ -23,7 +23,7 @@
           <input
             type="text"
             formControlName="name"
-            placeholder="e.g. Aviral Bajpai"
+            placeholder="e.g. First Last"
             class="input-field">
         </div>
         <span class="field-error" *ngIf="name?.touched && name?.hasError('required')">
@@ -37,7 +37,7 @@
           <input
             type="email"
             formControlName="email"
-            placeholder="e.g. aviral@gmail.com"
+            placeholder="e.g. name@gmail.com"
             class="input-field">
         </div>
         <span class="field-error" *ngIf="email?.touched && email?.hasError('required')">

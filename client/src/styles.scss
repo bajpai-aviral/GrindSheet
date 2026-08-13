@@ -1,5 +1,3 @@
-@use '@angular/material' as mat;
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -8,13 +6,55 @@
 
 html, body {
   height: 100%;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  background: #0d0d0d;
+  color: #fff;
 }
 
-body {
-  background-color: #f5f5f5;
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #1a1a1a; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+/* Material overrides for dark theme */
+.mat-mdc-card {
+  background: #1a1a1a !important;
+  color: #fff !important;
 }
 
-.full-width {
-  width: 100%;
+.mat-mdc-dialog-container {
+  background: #1a1a1a !important;
+  color: #fff !important;
+}
+
+.mat-mdc-form-field {
+  color: #fff !important;
+}
+
+.mdc-text-field {
+  background: #222 !important;
+}
+
+.mat-mdc-select-panel {
+  background: #1a1a1a !important;
+}
+
+.mat-mdc-option {
+  color: #fff !important;
+}
+
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: #2a2a2a;
+  --mdc-snackbar-supporting-text-color: #fff;
+}
+
+/* Force dark dialog background */
+.mat-mdc-dialog-surface {
+  background: #1a1a1a !important;
+  border-radius: 16px !important;
+  padding: 0 !important;
+}
+
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: #1a1a1a !important;
 }

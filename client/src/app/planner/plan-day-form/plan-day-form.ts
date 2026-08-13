@@ -1,9 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { PlannerService } from '../planner';
 
@@ -12,50 +9,147 @@ import { PlannerService } from '../planner';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatDialogModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule
+    MatDialogModule
   ],
   template: `
-    <h2 mat-dialog-title>{{ data.mode === 'create' ? 'Add Day' : 'Edit Day' }}</h2>
-    <mat-dialog-content>
-      <form [formGroup]="form">
+    <div class="dialog-container">
+      <h2 class="dialog-title">{{ data.mode === 'create' ? 'Add Day' : 'Edit Day' }}</h2>
 
-        <mat-form-field appearance="outline" class="full-width" *ngIf="data.mode === 'create'">
-          <mat-label>Day of Week</mat-label>
-          <mat-select formControlName="dayOfWeek">
-            <mat-option *ngFor="let day of data.availableDays" [value]="day">
-              {{ day }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="form.get('dayOfWeek')?.hasError('required')">
-            Day is required
-          </mat-error>
-        </mat-form-field>
+      <div class="dialog-content">
+        <form [formGroup]="form">
 
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Label</mat-label>
-          <input matInput formControlName="label" placeholder="e.g. Push Day, Rest Day, Cardio">
-          <mat-error *ngIf="form.get('label')?.hasError('required')">
-            Label is required
-          </mat-error>
-        </mat-form-field>
+          <div class="field-group" *ngIf="data.mode === 'create'">
+            <label>DAY OF WEEK</label>
+            <select class="select-field" formControlName="dayOfWeek">
+              <option value="" disabled>Select a day</option>
+              <option *ngFor="let day of data.availableDays" [value]="day">{{ day }}</option>
+            </select>
+            <span class="field-error" *ngIf="form.get('dayOfWeek')?.touched && form.get('dayOfWeek')?.hasError('required')">
+              Day is required
+            </span>
+          </div>
 
-      </form>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button mat-button (click)="dialogRef.close()">Cancel</button>
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="form.invalid || isLoading"
-        (click)="onSubmit()">
-        {{ data.mode === 'create' ? 'Add' : 'Save' }}
-      </button>
-    </mat-dialog-actions>
+          <div class="field-group">
+            <label>LABEL</label>
+            <input
+              class="input-field"
+              formControlName="label"
+              placeholder="e.g. Push Day, Rest Day, Cardio">
+            <span class="field-error" *ngIf="form.get('label')?.touched && form.get('label')?.hasError('required')">
+              Label is required
+            </span>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="dialog-actions">
+        <button class="btn-cancel" (click)="dialogRef.close()">Cancel</button>
+        <button
+          class="btn-primary"
+          [disabled]="form.invalid || isLoading"
+          (click)="onSubmit()">
+          {{ data.mode === 'create' ? 'Add' : 'Save' }}
+        </button>
+      </div>
+    </div>
   `,
-  styles: [`.full-width { width: 100%; margin-top: 8px; }`]
+  styles: [`
+    .dialog-container {
+      background: #1a1a1a;
+      border-radius: 16px;
+      padding: 28px;
+      min-width: 380px;
+    }
+
+    .dialog-title {
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 0 0 24px 0;
+    }
+
+    .dialog-content {
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #555;
+        letter-spacing: 0.08em;
+      }
+
+      .input-field, .select-field {
+        padding: 12px 16px;
+        background: #222;
+        border: 1px solid #2a2a2a;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.2s;
+        width: 100%;
+        appearance: none;
+
+        &::placeholder { color: #444; }
+        &:focus { border-color: #ff7f5c; }
+
+        option {
+          background: #222;
+          color: #fff;
+        }
+      }
+
+      .field-error {
+        color: #ff5252;
+        font-size: 0.8rem;
+      }
+    }
+
+    .dialog-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .btn-cancel {
+      padding: 10px 20px;
+      background: #222;
+      border: 1px solid #333;
+      border-radius: 10px;
+      color: #999;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover { border-color: #444; color: #fff; }
+    }
+
+    .btn-primary {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #ff7f5c, #ff5722);
+      border: none;
+      border-radius: 10px;
+      color: #111;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+
+      &:disabled { opacity: 0.4; cursor: not-allowed; }
+      &:hover:not(:disabled) { opacity: 0.9; }
+    }
+  `]
 })
 export class PlanDayFormComponent {
 

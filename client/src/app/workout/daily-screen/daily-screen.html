@@ -102,8 +102,7 @@
                   color="primary"
                   class="log-btn"
                   [disabled]="isSaving(exercise.planExerciseId, set.setNumber)"
-                  (click)="logSet(exercise, set)"
-                  [matTooltip]="set.loggedWeight !== null ? 'Update set' : 'Log set'">
+                  (click)="logSet(exercise, set)">
                   <mat-icon *ngIf="!isSaving(exercise.planExerciseId, set.setNumber)">
                     {{ set.loggedWeight !== null ? 'check_circle' : 'add' }}
                   </mat-icon>
