@@ -16,7 +16,10 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    button { color: #fff !important; }
+
+    button {
+      color: #fff !important;
+    }
 
     .brand-name {
       font-size: 1.1rem;
@@ -26,7 +29,10 @@
   }
 
   .navbar-right {
-    button { color: #fff !important; font-size: 0.85rem !important; }
+    button {
+      color: #fff !important;
+      font-size: 0.85rem !important;
+    }
   }
 }
 
@@ -39,8 +45,18 @@
 .page-header {
   margin-bottom: 20px;
 
-  h1 { font-size: 1.5rem; font-weight: 700; color: #fff; margin: 0 0 4px 0; }
-  p { color: #555; margin: 0; font-size: 0.85rem; }
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 4px 0;
+  }
+
+  p {
+    color: #555;
+    margin: 0;
+    font-size: 0.85rem;
+  }
 }
 
 .date-picker-card {
@@ -52,6 +68,9 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .field-group {
@@ -75,12 +94,14 @@
     font-size: 0.95rem;
     outline: none;
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     transition: border-color 0.2s;
-
-    &:focus { border-color: #ff7f5c; }
-
-    /* Style date input on mobile */
     color-scheme: dark;
+
+    &:focus {
+      border-color: #ff7f5c;
+    }
   }
 }
 
@@ -100,9 +121,13 @@
   transition: opacity 0.2s;
   width: 100%;
 
-  &:hover { opacity: 0.9; }
+  &:hover {
+    opacity: 0.9;
+  }
 
-  mat-icon { font-size: 1.1rem; }
+  mat-icon {
+    font-size: 1.1rem;
+  }
 }
 
 .loading-container {
@@ -114,9 +139,25 @@
 .record-header {
   margin-bottom: 20px;
 
-  h2 { font-size: 1.3rem; font-weight: 700; color: #fff; margin: 0 0 4px 0; }
-  .record-date { color: #555; font-size: 0.85rem; margin: 0 0 4px 0; }
-  .planner-name { color: #ff7f5c; font-size: 0.8rem; font-weight: 600; margin: 0; }
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 4px 0;
+  }
+
+  .record-date {
+    color: #555;
+    font-size: 0.85rem;
+    margin: 0 0 4px 0;
+  }
+
+  .planner-name {
+    color: #ff7f5c;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 0;
+  }
 }
 
 .exercises-list {
@@ -130,11 +171,21 @@
   border: 1px solid #2a2a2a !important;
   border-radius: 14px !important;
 
-  mat-card-title { color: #fff !important; font-weight: 700 !important; font-size: 1rem !important; }
-  mat-card-subtitle { color: #555 !important; font-size: 0.8rem !important; }
+  mat-card-title {
+    color: #fff !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+  }
+
+  mat-card-subtitle {
+    color: #555 !important;
+    font-size: 0.8rem !important;
+  }
 }
 
-.sets-table { margin-top: 12px; }
+.sets-table {
+  margin-top: 12px;
+}
 
 .sets-header {
   display: grid;
@@ -157,8 +208,13 @@
   border-bottom: 1px solid #1f1f1f;
   align-items: center;
 
-  &:last-child { border-bottom: none; }
-  &.not-logged { opacity: 0.4; }
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.not-logged {
+    opacity: 0.4;
+  }
 
   .set-number {
     width: 26px;
@@ -174,9 +230,23 @@
     flex-shrink: 0;
   }
 
-  .reps { font-weight: 600; color: #fff; font-size: 0.9rem; }
-  .weight { font-weight: 600; color: #fff; font-size: 0.9rem; }
-  .not-logged-text { color: #333; font-size: 0.8rem; font-weight: 400; }
+  .reps {
+    font-weight: 600;
+    color: #fff;
+    font-size: 0.9rem;
+  }
+
+  .weight {
+    font-weight: 600;
+    color: #fff;
+    font-size: 0.9rem;
+  }
+
+  .not-logged-text {
+    color: #333;
+    font-size: 0.8rem;
+    font-weight: 400;
+  }
 }
 
 .empty-state {
@@ -186,9 +256,25 @@
   padding: 48px 16px;
   text-align: center;
 
-  .empty-icon { font-size: 56px; width: 56px; height: 56px; color: #333; margin-bottom: 16px; }
-  h3 { color: #fff; margin-bottom: 8px; }
-  p { color: #555; font-size: 0.9rem; }
+  .empty-icon {
+    font-size: 56px;
+    width: 56px;
+    height: 56px;
+    color: #333;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: #555;
+    font-size: 0.9rem;
+  }
 }
 
-mat-divider { border-color: #222 !important; }
+mat-divider {
+  border-color: #222 !important;
+}
