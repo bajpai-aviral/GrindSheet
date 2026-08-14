@@ -59,7 +59,8 @@ import { PlannerService } from '../planner';
       background: #1a1a1a;
       border-radius: 16px;
       padding: 28px;
-      min-width: 380px;
+      min-width: 340px;
+      max-width: 420px;
     }
 
     .dialog-title {
@@ -73,25 +74,27 @@ import { PlannerService } from '../planner';
       margin-bottom: 24px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 20px;          /* ← fixed gap between fields */
     }
 
     .field-group {
       display: flex;
       flex-direction: column;
       gap: 8px;
+      min-height: 72px;  /* ← fixed height prevents shifting */
 
       label {
         font-size: 0.72rem;
         font-weight: 700;
         color: #555;
         letter-spacing: 0.08em;
+        flex-shrink: 0;   /* ← label never moves */
       }
 
       .input-field, .select-field {
         padding: 12px 16px;
         background: #222;
-        border: 1px solid #2a2a2a;
+        border: 2px solid #2a2a2a;  /* ← use border not outline */
         border-radius: 10px;
         color: #fff;
         font-size: 0.95rem;
@@ -99,9 +102,13 @@ import { PlannerService } from '../planner';
         transition: border-color 0.2s;
         width: 100%;
         appearance: none;
+        height: 48px;    /* ← fixed height */
 
         &::placeholder { color: #444; }
-        &:focus { border-color: #ff7f5c; }
+        &:focus {
+          border-color: #ff7f5c;
+          /* no size change on focus */
+        }
 
         option {
           background: #222;
@@ -112,6 +119,7 @@ import { PlannerService } from '../planner';
       .field-error {
         color: #ff5252;
         font-size: 0.8rem;
+        min-height: 18px; /* ← reserve space so layout doesn't shift */
       }
     }
 
