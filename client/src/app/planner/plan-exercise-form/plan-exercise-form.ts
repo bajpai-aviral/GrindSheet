@@ -88,7 +88,7 @@ import { PlannerService } from '../planner';
       margin-bottom: 24px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 20px;
     }
 
     .row {
@@ -102,6 +102,7 @@ import { PlannerService } from '../planner';
       display: flex;
       flex-direction: column;
       gap: 8px;
+      min-height: 72px;
 
       label {
         font-size: 0.72rem;
@@ -120,6 +121,8 @@ import { PlannerService } from '../planner';
         outline: none;
         transition: border-color 0.2s;
         width: 100%;
+        height: 48px;
+        border: 2px solid #2a2a2a;
 
         &::placeholder { color: #444; }
         &:focus { border-color: #ff7f5c; }
