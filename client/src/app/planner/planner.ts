@@ -36,8 +36,9 @@ export class PlannerService {
     return this.http.put<Planner>(`${this.apiUrl}/${id}`, request);
   }
 
-  deletePlanner(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  deletePlanner(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`,
+      { responseType: 'text' });
   }
 
   activatePlanner(id: string): Observable<Planner> {
@@ -72,4 +73,6 @@ export class PlannerService {
       `${environment.apiUrl}/plan-exercises/${exerciseId}`,
       { responseType: 'text' });
   }
+
+
 }

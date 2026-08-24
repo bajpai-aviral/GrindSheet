@@ -46,21 +46,18 @@
 
       <!-- Active Planner Banner -->
       <!-- Active Planner Banner -->
-<div class="active-banner" *ngIf="getActivePlanner()">
-  <mat-icon>bolt</mat-icon>
-  <span>Active: <strong>{{ getActivePlanner()?.name }}</strong></span>
-  <button mat-stroked-button (click)="goToToday()">
-    <mat-icon>today</mat-icon>
-    Go to Today's Workout
-  </button>
-</div>
+      <div class="active-banner" *ngIf="getActivePlanner()">
+        <mat-icon>bolt</mat-icon>
+        <span>Active: <strong>{{ getActivePlanner()?.name }}</strong></span>
+        <button mat-stroked-button (click)="goToToday()">
+          <mat-icon>today</mat-icon>
+          Go to Today's Workout
+        </button>
+      </div>
 
       <!-- Planner Cards -->
       <div class="planners-grid">
-        <mat-card
-          *ngFor="let planner of planners"
-          class="planner-card"
-          [class.active-card]="planner.active">
+        <mat-card *ngFor="let planner of planners" class="planner-card" [class.active-card]="planner.active">
 
           <mat-card-header>
             <mat-card-title>{{ planner.name }}</mat-card-title>
@@ -74,9 +71,7 @@
 
           <mat-card-content>
             <div class="days-preview">
-              <span
-                *ngFor="let day of planner.days"
-                class="day-badge"
+              <span *ngFor="let day of planner.days" class="day-badge"
                 [class.rest-day]="day.label.toLowerCase().includes('rest')">
                 {{ day.dayOfWeek | slice:0:3 }}
               </span>
@@ -88,21 +83,17 @@
               <mat-icon>settings</mat-icon>
               Manage
             </button>
-            <button
-              mat-button
-              color="primary"
-              *ngIf="!planner.active"
-              (click)="activatePlanner(planner)">
+            <button mat-button color="primary" *ngIf="!planner.active" (click)="activatePlanner(planner)">
               <mat-icon>play_arrow</mat-icon>
               Activate
             </button>
-            <button
-              mat-button
-              color="accent"
-              *ngIf="planner.active"
-              (click)="goToToday()">
+            <button mat-button color="accent" *ngIf="planner.active" (click)="goToToday()">
               <mat-icon>today</mat-icon>
               Today
+            </button>
+            <button mat-button color="warn" (click)="deletePlanner(planner)">
+              <mat-icon>delete</mat-icon>
+              Delete
             </button>
           </mat-card-actions>
 

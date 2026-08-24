@@ -27,21 +27,17 @@
         </mat-chip>
       </div>
       <div class="header-actions">
-        <button
-          mat-raised-button
-          color="primary"
-          *ngIf="!planner.active"
-          (click)="activatePlanner()">
+        <button mat-raised-button color="primary" *ngIf="!planner.active" (click)="activatePlanner()">
           <mat-icon>play_arrow</mat-icon>
           Activate
         </button>
-        <button
-          mat-raised-button
-          color="accent"
-          (click)="openAddDay()"
-          [disabled]="getAvailableDays().length === 0">
+        <button mat-raised-button color="accent" (click)="openAddDay()" [disabled]="getAvailableDays().length === 0">
           <mat-icon>add</mat-icon>
           Add Day
+        </button>
+        <button mat-raised-button color="warn" (click)="deletePlanner()">
+          <mat-icon>delete</mat-icon>
+          Delete Planner
         </button>
       </div>
     </div>
@@ -59,9 +55,7 @@
 
     <!-- Days Grid -->
     <div class="days-grid">
-      <mat-card
-        *ngFor="let day of getOrderedDays()"
-        class="day-card"
+      <mat-card *ngFor="let day of getOrderedDays()" class="day-card"
         [class.rest-card]="day.label.toLowerCase().includes('rest')">
 
         <!-- Day Header -->
@@ -96,9 +90,7 @@
               <p>No exercises added yet</p>
             </div>
 
-            <div
-              class="exercise-item"
-              *ngFor="let exercise of day.exercises; let i = index">
+            <div class="exercise-item" *ngFor="let exercise of day.exercises; let i = index">
               <div class="exercise-info">
                 <span class="exercise-order">{{ i + 1 }}</span>
                 <div class="exercise-details">
