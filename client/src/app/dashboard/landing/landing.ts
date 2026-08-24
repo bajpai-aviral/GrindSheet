@@ -43,7 +43,7 @@ export class Landing implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const user = this.authService.getUser();
@@ -102,6 +102,20 @@ export class Landing implements OnInit {
 
   getActivePlanner(): Planner | undefined {
     return this.planners.find(p => p.active);
+  }
+
+  deletePlanner(planner: Planner): void {
+    if (!confirm(`Delete "${planner.name}"? This will permanently delete all days, exercises and logged sets.`)) return;
+
+    this.plannerService.deletePlanner(planner.id).subscribe({
+      next: () => {
+        this.loadPlanners();
+        this.snackBar.open('Planner deleted', 'Close', { duration: 3000 });
+      },
+      error: () => {
+        this.snackBar.open('Failed to delete planner', 'Close', { duration: 3000 });
+      }
+    });
   }
 
   logout(): void {
