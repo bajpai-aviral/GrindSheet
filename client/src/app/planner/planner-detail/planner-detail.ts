@@ -50,7 +50,7 @@ export class PlannerDetail implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.plannerId = this.route.snapshot.paramMap.get('id') || '';
@@ -58,20 +58,20 @@ export class PlannerDetail implements OnInit {
   }
 
   loadPlanner(): void {
-  this.isLoading = true;
-  this.plannerService.getPlanner(this.plannerId).subscribe({
-    next: (planner) => {
-      this.planner = { ...planner };
-      this.isLoading = false;
-      this.cdr.detectChanges();
-    },
-    error: () => {
-      this.isLoading = false;
-      this.cdr.detectChanges();
-      this.snackBar.open('Failed to load planner', 'Close', { duration: 3000 });
-    }
-  });
-}
+    this.isLoading = true;
+    this.plannerService.getPlanner(this.plannerId).subscribe({
+      next: (planner) => {
+        this.planner = { ...planner };
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.isLoading = false;
+        this.cdr.detectChanges();
+        this.snackBar.open('Failed to load planner', 'Close', { duration: 3000 });
+      }
+    });
+  }
 
   // Get days in correct order
   getOrderedDays(): PlanDay[] {
@@ -127,7 +127,7 @@ export class PlannerDetail implements OnInit {
     });
   }
 
-  
+
 
   // Open add exercise dialog
   openAddExercise(day: PlanDay): void {
@@ -172,34 +172,47 @@ export class PlannerDetail implements OnInit {
   }
 
   deleteExercise(exercise: PlanExercise): void {
-  if (!confirm(`Delete ${exercise.name}?`)) return;
+    if (!confirm(`Delete ${exercise.name}?`)) return;
 
-  this.plannerService.deleteExercise(exercise.id).subscribe({
-    next: () => {
-      this.snackBar.open('Exercise deleted', 'Close', { duration: 3000 });
-      this.loadPlanner();
-    },
-    error: () => {
-      this.snackBar.open('Failed to delete exercise', 'Close', { duration: 3000 });
-    }
-  });
-}
+    this.plannerService.deleteExercise(exercise.id).subscribe({
+      next: () => {
+        this.snackBar.open('Exercise deleted', 'Close', { duration: 3000 });
+        this.loadPlanner();
+      },
+      error: () => {
+        this.snackBar.open('Failed to delete exercise', 'Close', { duration: 3000 });
+      }
+    });
+  }
 
-deleteDay(day: PlanDay): void {
-  console.log('Deleting day:', day); // ← add this
-  if (!confirm(`Delete ${day.dayOfWeek} - ${day.label}? This will also delete all exercises for this day.`)) return;
+  deleteDay(day: PlanDay): void {
+    console.log('Deleting day:', day); // ← add this
+    if (!confirm(`Delete ${day.dayOfWeek} - ${day.label}? This will also delete all exercises for this day.`)) return;
 
-  this.plannerService.deleteDay(day.id).subscribe({
-    next: () => {
-      this.snackBar.open('Day deleted', 'Close', { duration: 3000 });
-      this.loadPlanner();
-    },
-    error: () => {
-      this.snackBar.open('Failed to delete day', 'Close', { duration: 3000 });
-    }
-  });
-}
+    this.plannerService.deleteDay(day.id).subscribe({
+      next: () => {
+        this.snackBar.open('Day deleted', 'Close', { duration: 3000 });
+        this.loadPlanner();
+      },
+      error: () => {
+        this.snackBar.open('Failed to delete day', 'Close', { duration: 3000 });
+      }
+    });
+  }
 
+  deletePlanner(): void {
+    if (!confirm(`Delete "${this.planner?.name}"? This will permanently delete all days, exercises and logged sets for this planner.`)) return;
+
+    this.plannerService.deletePlanner(this.plannerId).subscribe({
+      next: () => {
+        this.snackBar.open('Planner deleted', 'Close', { duration: 3000 });
+        this.router.navigate(['/dashboard']);
+      },
+      error: () => {
+        this.snackBar.open('Failed to delete planner', 'Close', { duration: 3000 });
+      }
+    });
+  }
 
 
   // Activate planner
