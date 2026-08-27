@@ -52,7 +52,7 @@ export class DailyScreen implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.today = this.workoutService.getTodayFormatted();
@@ -107,39 +107,44 @@ export class DailyScreen implements OnInit {
 
   // Log a single set
   logSet(exercise: ExerciseScreenResponse, set: SetScreenResponse): void {
-  const weight = this.weightInputs[exercise.planExerciseId]?.[set.setNumber];
-  if (weight === null || weight === undefined) {
-    this.snackBar.open('Please enter a weight first', 'Close', { duration: 2000 });
-    return;
-  }
-
-  const key = `${exercise.planExerciseId}-${set.setNumber}`;
-  this.savingSet[key] = true;
-
-  this.workoutService.logSet({
-    workoutLogId: this.screen!.workoutLogId,
-    planExerciseId: exercise.planExerciseId,
-    setNumber: set.setNumber,
-    weightUsed: weight,
-    notes: ''
-  }).subscribe({
-    next: () => {
-      this.savingSet[key] = false;
-      this.snackBar.open(
-        `Set ${set.setNumber} logged — ${weight}kg`,
-        'Close',
-        { duration: 2000 }
-      );
-      // Reload screen to get updated loggedWeight
-      this.loadTodayScreen();
-    },
-    error: () => {
-      this.savingSet[key] = false;
-      this.snackBar.open('Failed to log set', 'Close', { duration: 2000 });
-      this.cdr.detectChanges();
+    const weight = this.weightInputs[exercise.planExerciseId]?.[set.setNumber];
+    if (weight === null || weight === undefined) {
+      this.snackBar.open('Please enter a weight first', 'Close', { duration: 2000 });
+      return;
     }
-  });
-}
+
+    const key = `${exercise.planExerciseId}-${set.setNumber}`;
+    this.savingSet[key] = true;
+
+    this.workoutService.logSet({
+      workoutLogId: this.screen!.workoutLogId,
+      planExerciseId: exercise.planExerciseId,
+      setNumber: set.setNumber,
+      weightUsed: weight,
+      notes: ''
+    }).subscribe({
+      next: () => {
+        this.savingSet[key] = false;
+        this.snackBar.open(
+          `Set ${set.setNumber} logged — ${weight}kg`,
+          'Close',
+          {
+            duration: 2000,
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            panelClass: ['grindsheet-snackbar']
+          }
+        );
+        // Reload screen to get updated loggedWeight
+        this.loadTodayScreen();
+      },
+      error: () => {
+        this.savingSet[key] = false;
+        this.snackBar.open('Failed to log set', 'Close', { duration: 2000 });
+        this.cdr.detectChanges();
+      }
+    });
+  }
 
   // Check if set is being saved
   isSaving(exerciseId: string, setNumber: number): boolean {
