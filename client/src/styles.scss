@@ -4,7 +4,8 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   font-family: 'Inter', 'Roboto', sans-serif;
   background: #0d0d0d;
@@ -12,9 +13,18 @@ html, body {
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #1a1a1a; }
-::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
 
 /* Material overrides for dark theme */
 .mat-mdc-card {
@@ -57,4 +67,52 @@ html, body {
 
 .mat-mdc-dialog-container {
   --mdc-dialog-container-color: #1a1a1a !important;
+}
+
+/* Snackbar styling */
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: #ff7f5c !important;
+  --mdc-snackbar-supporting-text-color: #111 !important;
+  --mat-snack-bar-button-color: #111 !important;
+  border-radius: 10px !important;
+}
+
+.mat-mdc-snack-bar-label {
+  color: #111 !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+}
+
+.mat-mdc-snack-bar-action {
+  color: #111 !important;
+  font-weight: 700 !important;
+}
+
+.grindsheet-snackbar {
+  .mat-mdc-snack-bar-container {
+    background: #ff7f5c !important;
+    color: #111 !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+  }
+}
+
+.mat-mdc-snack-bar-container {
+  .mdc-snackbar__surface {
+    background-color: #ff7f5c !important;
+    border-radius: 10px !important;
+  }
+
+  .mdc-snackbar__label {
+    color: #111111 !important;
+    font-weight: 700 !important;
+    font-size: 0.9rem !important;
+  }
+
+  .mat-mdc-button {
+    .mdc-button__label {
+      color: #111111 !important;
+      font-weight: 700 !important;
+    }
+  }
 }
