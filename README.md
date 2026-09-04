@@ -1,4 +1,4 @@
-# 🏋️ grindsheet
+# 🏋️ GrindSheet
 
 A full-stack web application that lets users log daily workout sessions — tracking exercises, sets, reps, and weight — with a built-in week-on-week comparison to monitor progress over time.
 
