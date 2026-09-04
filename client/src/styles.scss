@@ -32,11 +32,6 @@ body {
   color: #fff !important;
 }
 
-.mat-mdc-dialog-container {
-  background: #1a1a1a !important;
-  color: #fff !important;
-}
-
 .mat-mdc-form-field {
   color: #fff !important;
 }
@@ -53,51 +48,26 @@ body {
   color: #fff !important;
 }
 
-.mat-mdc-snack-bar-container {
-  --mdc-snackbar-container-color: #2a2a2a;
-  --mdc-snackbar-supporting-text-color: #fff;
+/* Dialog */
+.mat-mdc-dialog-container {
+  background: #1a1a1a !important;
+  color: #fff !important;
+  --mdc-dialog-container-color: #1a1a1a !important;
 }
 
-/* Force dark dialog background */
 .mat-mdc-dialog-surface {
   background: #1a1a1a !important;
   border-radius: 16px !important;
   padding: 0 !important;
 }
 
-.mat-mdc-dialog-container {
-  --mdc-dialog-container-color: #1a1a1a !important;
-}
-
-/* Snackbar styling */
+/* Snackbar */
 .mat-mdc-snack-bar-container {
   --mdc-snackbar-container-color: #ff7f5c !important;
   --mdc-snackbar-supporting-text-color: #111 !important;
   --mat-snack-bar-button-color: #111 !important;
   border-radius: 10px !important;
-}
 
-.mat-mdc-snack-bar-label {
-  color: #111 !important;
-  font-weight: 600 !important;
-  font-size: 0.9rem !important;
-}
-
-.mat-mdc-snack-bar-action {
-  color: #111 !important;
-  font-weight: 700 !important;
-}
-
-.grindsheet-snackbar {
-  .mat-mdc-snack-bar-container {
-    background: #ff7f5c !important;
-    color: #111 !important;
-    border-radius: 10px !important;
-    font-weight: 600 !important;
-  }
-}
-
-.mat-mdc-snack-bar-container {
   .mdc-snackbar__surface {
     background-color: #ff7f5c !important;
     border-radius: 10px !important;
@@ -113,6 +83,20 @@ body {
     .mdc-button__label {
       color: #111111 !important;
       font-weight: 700 !important;
+    }
+
+    .mat-mdc-button-persistent-ripple {
+      background-color: transparent !important;
+    }
+
+    .mat-ripple-element {
+      background-color: rgba(0, 0, 0, 0.1) !important;
+    }
+
+    &:hover .mat-mdc-button-persistent-ripple::before,
+    &:focus .mat-mdc-button-persistent-ripple::before {
+      background-color: transparent !important;
+      opacity: 0 !important;
     }
   }
 }
